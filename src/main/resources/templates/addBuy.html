@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/addBuyStyle.css}">
+</head>
+<body>
+<h2 th:text="${title}"></h2>
+<form th:action="@{/{id}/addBuy(id=${goods.id})}" th:object="${buy}" method="post">
+  <input type="hidden" th:field="*{goods.id}"/>
+  <label for="buyNum">数量:</label>
+  <input type="text" id="buyNum" th:field="*{buyNum}" placeholder="数量を入力" required></span><br><br>
+
+  <label for="buyPrice">価格:</label>
+  <input type="text" id="buyPrice" th:field="*{buyPrice}" placeholder="価格を入力" required></span> <br><br>
+
+  <label for="buyDate">日付:</label>
+  <input type="text" id="buyDate" th:field="*{buyDate}" placeholder="日付を入力" required><br><br>
+
+  <input th:if="${title}=='仕入編集'" type="hidden" th:field="*{buyId}"/>
+
+  <button type="submit" value="送信">送信</button>
+</form>
+<br>
+<a th:href="@{/detail/{id}(id=${goods.id})}">戻る</a>
+</body>
+</html>

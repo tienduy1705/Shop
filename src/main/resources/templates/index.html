@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商品一覧</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/indexStyle.css}">
+</head>
+<body>
+<h1>商品一覧</h1>
+<form th:action="@{/search}" method="get">
+    <input type="text" name="keyword" placeholder="商品名を検索">
+    <button type="submit">検索</button>
+</form>
+<div class="scrollable-table">
+<table th:if="${goods.size > 0}" border="1">
+    <tr>
+        <th>ID</th>
+        <th>商品名</th>
+        <th>在庫</th>
+        <th>メーモ</th>
+        <th>詳細</th>
+        <th>更新</th>
+        <th>削除</th>
+    </tr>
+    <tr th:each="goods : ${goods}">
+        <td th:text="${goods.id}"></td>
+        <td th:text="${goods.name}"></td>
+        <td th:text="${goods.stock}"></td>
+        <td th:text="${goods.description}"></td>
+        <td><a th:href="@{/detail/{x}(x=${goods.id})}">詳細</a></td>
+        <td><a th:href="@{/update/{x}(x=${goods.id})}">更新</a></td>
+        <script>
+            function confirmDelete(url) {
+                if (confirm("本当に削除しますか？")) {
+                    window.location.href = url;
+                }
+            }
+        </script>
+
+        <td>
+            <a href="#" th:attr="onclick=|confirmDelete('@{/delete/{x}(x=${goods.id})}');|">
+                削除
+            </a>
+        </td>
+    </tr>
+</table>
+</div>
+<p th:if="${goods.isEmpty()}">該当する商品がありません。</p>
+<a href="/add">商品登録</a>
+</body>
+</html>

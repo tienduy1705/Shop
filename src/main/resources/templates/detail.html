@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/detailStyle.css}">
+</head>
+<body>
+ <h1 th:text ="${title}"></h1>
+ <br>
+<div th:object="${goods}">
+    <p th:text ="*{'品 名: ' + name}"></p>
+    <p th:text ="*{'在 庫: ' + stock}"></p>
+    <p th:text ="*{'メーモ: ' + description}"></p>
+</div>
+ <br>
+ <h3>仕入一覧</h3>
+ <div class="scrollable-table">
+ <table th:if="${#lists.size(buyList) > 0}" border="1">
+     <tr>
+         <th>ID</th>
+         <th>数量</th>
+         <th>価格</th>
+         <th>日付</th>
+         <th>編集</th>
+         <th>削除</th>
+     </tr>
+     <tr th:each="buy : ${buyList}">
+         <td th:text="${buy.buyId}"></td>
+         <td th:text="${buy.buyNum}"></td>
+         <td th:text="${buy.buyPrice}"></td>
+         <td th:text="${buy.buyDate}"></td>
+         <td><a th:href="@{/{x}/editBuy/{y}(x=${buy.goods.id},y=${buy.buyId})}">更新</a></td>
+         <script>
+             function confirmDelete(url) {
+                 if (confirm("本当に削除しますか？")) {
+                     window.location.href = url;
+                 }
+             }
+         </script>
+
+         <td>
+             <a href="#" th:attr="onclick=|confirmDelete('@{/{x}/deleteBuy/{y}(x=${buy.goods.id},y=${buy.buyId})}');|">
+                 削除
+             </a>
+         </td>
+     </tr>
+ </table>
+ </div>
+ <br>
+ <h4>売り一覧</h4>
+ <table th:if="${#lists.size(sellList) > 0}" border="1">
+     <tr>
+         <th>ID</th>
+         <th>数量</th>
+         <th>価格</th>
+         <th>日付</th>
+         <th>編集</th>
+         <th>削除</th>
+     </tr>
+     <tr th:each="sell : ${sellList}">
+         <td th:text="${sell.sellId}"></td>
+         <td th:text="${sell.sellNum}"></td>
+         <td th:text="${sell.sellPrice}"></td>
+         <td th:text="${sell.sellDate}"></td>
+         <td><a th:href="@{/{x}/editSell/{y}(x=${sell.goods.id},y=${sell.sellId})}">更新</a></td>
+         <script>
+             function confirmDelete(url) {
+                 if (confirm("本当に削除しますか？")) {
+                     window.location.href = url;
+                 }
+             }
+         </script>
+
+         <td>
+             <a href="#" th:attr="onclick=|confirmDelete('@{/{x}/editSell/{y}(x=${sell.goods.id},y=${sell.sellId})}');|">
+                 削除
+             </a>
+         </td>
+     </tr>
+ </table>
+ <br>
+ <a th:href="@{/{id}/addBuy(id=${goods.id})}">仕入</a>
+ <a th:href="@{/{id}/addSell(id=${goods.id})}">売り</a>
+ <br>
+<a th:href="@{/}">戻り</a>
+</body>
+</html>

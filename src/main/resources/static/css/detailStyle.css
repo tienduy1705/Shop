@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 20px;
+    padding: 20px;
+}
+
+h1, h3, h4 {
+    color: #333;
+}
+
+p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+/* テーブルをスクロール可能にする */
+.scrollable-table {
+    max-height: 300px; /* テーブルの最大高さ */
+    overflow-y: auto; /* 縦スクロールを有効にする */
+    border: 1px solid #ccc; /* 枠線を追加 */
+}
+
+/* テーブルの見た目を改善 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #65bfbf;
+    position: sticky;
+    top: 0; /* ヘッダーを固定 */
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #c82333;
+}

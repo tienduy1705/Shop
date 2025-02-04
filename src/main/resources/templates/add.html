@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/addStyle.css}">
+</head>
+<body>
+<h2 th:text="${title}"></h2>
+<form th:action="@{/add}" th:object="${goods}" method="post">
+    <label for="name">商品名:</label>
+    <input type="text" id="name" th:field="*{name}" placeholder="商品名を入力" required><br><br>
+
+    <label for="description">メーモ:</label>
+    <textarea id="description" th:field="*{description}" placeholder="商品の説明を入力"></textarea><br><br>
+
+    <input th:if="${title}=='商品更新'" type="hidden" th:field="*{id}"/>
+    <button type="submit" value="送信">送信</button>
+</form>
+<br>
+<a href="/">戻る</a>
+</body>
+</html>
