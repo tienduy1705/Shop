@@ -71,7 +71,7 @@ public class StockController {
     public String deleteGoods(@PathVariable("id") Long id) {
         List<Buy> buyList = buyService.findByGoodsId(id);
         List<Sell> sellList = sellService.findByGoodsId(id);
-        if(buyList.size() > 0 || sellList.size() > 0) {
+        if(!buyList.isEmpty() || !sellList.isEmpty()) {
             System.out.println("削除不可: Goods ID " + id + " に関連データがあります");
             return "redirect:/detail/" + id;
         }else{

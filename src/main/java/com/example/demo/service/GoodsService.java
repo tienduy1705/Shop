@@ -18,8 +18,8 @@ public class GoodsService {
         return goodsRepository.findAll();
     }
 
-    public Goods saveAndFlush(Goods goods) {
-        return goodsRepository.save(goods);
+    public void saveAndFlush(Goods goods) {
+        goodsRepository.save(goods);
     }
     public Goods findById(Long id){
         return goodsRepository.findById(id).orElse(null);
