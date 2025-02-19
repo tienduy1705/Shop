@@ -1,67 +1,55 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.antlr.v4.runtime.misc.NotNull;
+import lombok.*;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name ="sell")
-@ToString
+@Document(collection = "sell")  // MongoDB のコレクション名
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@ToString
 public class Sell {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sellId;
 
-    @Column(nullable = true)
+    @Id
+    private String sellId;  // MongoDB の `_id` は通常 String 型 (ObjectId 形式)
+
     @NotNull
     private Integer sellNum;
 
-    @Column(nullable = true)
     @NotNull
     private Integer sellPrice;
 
-    @Column
     private String sellDate;
 
-    @ManyToOne
-    @JoinColumn(name = "goods_id", nullable = false)
+    @DBRef  // MongoDB のリファレンス（外部キーの代わり）
     private Goods goods;
 
-    public Goods getGoods() {
-        return goods;
-    }
-
-    public void setGoods(Goods goods) {
-        this.goods = goods;
-    }
-
-    public Long getSellId() {
+    public String getSellId() {
         return sellId;
     }
 
-    public void setSellId(Long sellId) {
+    public void setSellId(String sellId) {
         this.sellId = sellId;
     }
 
+    @NotNull
     public Integer getSellNum() {
         return sellNum;
     }
 
-    public void setSellNum(Integer sellNum) {
+    public void setSellNum(@NotNull Integer sellNum) {
         this.sellNum = sellNum;
     }
 
+    @NotNull
     public Integer getSellPrice() {
         return sellPrice;
     }
 
-    public void setSellPrice(Integer sellPrice) {
+    public void setSellPrice(@NotNull Integer sellPrice) {
         this.sellPrice = sellPrice;
     }
 
@@ -71,5 +59,13 @@ public class Sell {
 
     public void setSellDate(String sellDate) {
         this.sellDate = sellDate;
+    }
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 }

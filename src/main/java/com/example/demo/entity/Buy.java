@@ -1,67 +1,55 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.antlr.v4.runtime.misc.NotNull;
+import lombok.*;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name ="buy")
-@ToString
+@Document(collection = "buy")  // MongoDB のコレクション名
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@ToString
 public class Buy {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long buyId;
 
-    @Column(nullable = true)
+    @Id
+    private String buyId;  // MongoDB の `_id` は String 型 (ObjectId 形式)
+
     @NotNull
     private Integer buyNum;
 
-    @Column(nullable = true)
     @NotNull
     private Integer buyPrice;
 
-    @Column(nullable = true)
     private String buyDate;
 
-    @ManyToOne
-    @JoinColumn(name = "goods_id", nullable = false)
+    @DBRef  // MongoDB の参照関係
     private Goods goods;
 
-    public Goods getGoods() {
-        return goods;
-    }
-
-    public void setGoods(Goods goods) {
-        this.goods = goods;
-    }
-
-    public Long getBuyId() {
-        return buyId;
-    }
-
-    public void setBuyId(Long buyId) {
-        this.buyId = buyId;
-    }
-
+    @NotNull
     public Integer getBuyNum() {
         return buyNum;
     }
 
-    public void setBuyNum(Integer buyNum) {
+    public void setBuyNum(@NotNull Integer buyNum) {
         this.buyNum = buyNum;
     }
 
+    public String getBuyId() {
+        return buyId;
+    }
+
+    public void setBuyId(String buyId) {
+        this.buyId = buyId;
+    }
+
+    @NotNull
     public Integer getBuyPrice() {
         return buyPrice;
     }
 
-    public void setBuyPrice(Integer buyPrice) {
+    public void setBuyPrice(@NotNull Integer buyPrice) {
         this.buyPrice = buyPrice;
     }
 
@@ -71,5 +59,13 @@ public class Buy {
 
     public void setBuyDate(String buyDate) {
         this.buyDate = buyDate;
+    }
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 }

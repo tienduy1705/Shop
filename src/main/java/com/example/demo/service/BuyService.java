@@ -17,7 +17,7 @@ public class BuyService {
     }
 
     public Buy saveAndFlush(Buy buy) {
-        return buyRepository.saveAndFlush(buy);
+        return buyRepository.save(buy);
     }
 
     public Buy findById(Long id) {

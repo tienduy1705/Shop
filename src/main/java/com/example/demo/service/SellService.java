@@ -17,7 +17,7 @@ public class SellService {
     }
 
     public Sell saveAndFlush(Sell sell) {
-        return sellRepository.saveAndFlush(sell);
+        return sellRepository.save(sell);
     }
 
     public Sell findById(Long id) {

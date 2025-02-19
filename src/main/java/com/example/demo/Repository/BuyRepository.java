@@ -1,12 +1,9 @@
 package com.example.demo.Repository;
 
 import com.example.demo.entity.Buy;
-import com.example.demo.entity.Goods;
-import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
-import java.util.Optional;
 
-public interface BuyRepository extends JpaRepository<Buy, Long> {
+public interface BuyRepository extends MongoRepository<Buy, Long> {
     List<Buy> findByGoodsId(Long goodsId);
 }

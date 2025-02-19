@@ -19,7 +19,7 @@ public class GoodsService {
     }
 
     public Goods saveAndFlush(Goods goods) {
-        return goodsRepository.saveAndFlush(goods);
+        return goodsRepository.save(goods);
     }
     public Goods findById(Long id){
         return goodsRepository.findById(id).orElse(null);
