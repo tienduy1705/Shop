@@ -43,7 +43,7 @@ public class StockController {
 
     @GetMapping("/search")
     public String search(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
-        List<Goods> goodsList = goodsService.findByNameContaining(keyword);
+        List<Goods> goodsList = goodsService.findByGoodsNameContaining(keyword);
         model.addAttribute("goods", goodsList);
         return "index"; // 検索結果を index.html に表示
     }

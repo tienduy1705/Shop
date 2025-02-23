@@ -28,11 +28,11 @@ public class GoodsService {
     public void deleteById(Long id) {
         goodsRepository.deleteById(id);
     }
-    public List<Goods> findByNameContaining(String keyword){
+    public List<Goods> findByGoodsNameContaining(String keyword){
         if(keyword == null || keyword.isEmpty()){
             return goodsRepository.findAll();
         }
-        return goodsRepository.findByNameContaining(keyword);
+        return goodsRepository.findByGoodsNameContaining(keyword);
     }
 
 }

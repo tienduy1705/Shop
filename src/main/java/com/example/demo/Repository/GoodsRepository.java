@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface GoodsRepository  extends MongoRepository<Goods, Long> {
-    List<Goods> findByNameContaining(String keyword);
+    List<Goods> findByGoodsNameContaining(String keyword);
 
 }
