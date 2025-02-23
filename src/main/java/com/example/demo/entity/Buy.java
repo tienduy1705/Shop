@@ -13,6 +13,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @ToString
 public class Buy {
 
+    @Setter
+    @Getter
     @Id
     private String buyId;  // MongoDB の `_id` は String 型 (ObjectId 形式)
 
@@ -22,8 +24,12 @@ public class Buy {
     @NotNull
     private Integer buyPrice;
 
+    @Setter
+    @Getter
     private String buyDate;
 
+    @Setter
+    @Getter
     @DBRef  // MongoDB の参照関係
     private Goods goods;
 
@@ -36,14 +42,6 @@ public class Buy {
         this.buyNum = buyNum;
     }
 
-    public String getBuyId() {
-        return buyId;
-    }
-
-    public void setBuyId(String buyId) {
-        this.buyId = buyId;
-    }
-
     @NotNull
     public Integer getBuyPrice() {
         return buyPrice;
@@ -53,19 +51,4 @@ public class Buy {
         this.buyPrice = buyPrice;
     }
 
-    public String getBuyDate() {
-        return buyDate;
-    }
-
-    public void setBuyDate(String buyDate) {
-        this.buyDate = buyDate;
-    }
-
-    public Goods getGoods() {
-        return goods;
-    }
-
-    public void setGoods(Goods goods) {
-        this.goods = goods;
-    }
 }
