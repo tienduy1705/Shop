@@ -49,10 +49,13 @@ public class StockController {
     }
 
     @GetMapping("/detail/{id}")
-    public String detail(@PathVariable("id") Long id, Model model) {
+    public String detail(@PathVariable("id") String id, Model model) {
         Goods goods = goodsService.findById(id);
         List<Buy> buyList = buyService.findByGoodsId(id);
         List<Sell> sellList = sellService.findByGoodsId(id);
+        Integer getTotalBuyQuantity = buyList != null ? buyList.stream().mapToInt(Buy::getBuyNum).sum() : 0;
+        Integer getTotalSellQuantity = sellList != null ? sellList.stream().mapToInt(Sell::getSellNum).sum() : 0;
+        goods.setStock(getTotalBuyQuantity - getTotalSellQuantity);
         model.addAttribute("goods", goods);
         model.addAttribute("buyList", buyList);
         model.addAttribute("sellList", sellList);
@@ -60,7 +63,7 @@ public class StockController {
         return "detail";
     }
     @GetMapping("/update/{id}")
-    public String edit(@PathVariable("id") Long id, Model model) {
+    public String edit(@PathVariable("id") String id, Model model) {
         Goods goods = goodsService.findById(id);
         model.addAttribute("title","商品更新");
         model.addAttribute("goods", goods);
@@ -68,7 +71,7 @@ public class StockController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteGoods(@PathVariable("id") Long id) {
+    public String deleteGoods(@PathVariable("id") String id) {
         List<Buy> buyList = buyService.findByGoodsId(id);
         List<Sell> sellList = sellService.findByGoodsId(id);
         if(!buyList.isEmpty() || !sellList.isEmpty()) {
@@ -83,7 +86,7 @@ public class StockController {
     }
 
     @GetMapping("/{goodsId}/addBuy")
-    public String addBuy(@PathVariable("goodsId") Long goodsId, Model model) {
+    public String addBuy(@PathVariable("goodsId") String goodsId, Model model) {
         Goods goods = goodsService.findById(goodsId);
         Buy buy = new Buy();
         buy.setGoods(goods);
@@ -101,7 +104,7 @@ public class StockController {
     }
 
     @GetMapping("/{goodsId}/editBuy/{buyId}")
-    public String editBuy(@PathVariable("goodsId") Long goodsId,@PathVariable("buyId") Long buyId,Model model){
+    public String editBuy(@PathVariable("goodsId") String goodsId,@PathVariable("buyId") String buyId,Model model){
         Goods goods = goodsService.findById(goodsId);
         Buy buy = buyService.findById(buyId);
         model.addAttribute("goods", goods);
@@ -111,13 +114,13 @@ public class StockController {
     }
 
     @GetMapping("/{goodsId}/deleteBuy/{buyId}")
-    public String deleteBuy(@PathVariable("goodsId") Long goodsId,@PathVariable("buyId") Long buyId) {
+    public String deleteBuy(@PathVariable("goodsId") String goodsId,@PathVariable("buyId") String buyId) {
         buyService.deleteById(buyId);
         return "redirect:/detail/" + goodsId;
     }
 
     @GetMapping("/{goodsId}/addSell")
-    public String addSell(@PathVariable("goodsId") Long goodsId, Model model) {
+    public String addSell(@PathVariable("goodsId") String goodsId, Model model) {
         Goods goods = goodsService.findById(goodsId);
         Sell sell = new Sell();
         sell.setGoods(goods);
@@ -134,7 +137,7 @@ public class StockController {
         return "redirect:/detail/" + sell.getGoods().getId();
     }
     @GetMapping("/{goodsId}/editSell/{sellId}")
-    public String editSell(@PathVariable("goodsId") Long goodsId,@PathVariable("sellId") Long sellId, Model model){
+    public String editSell(@PathVariable("goodsId") String goodsId,@PathVariable("sellId") String sellId, Model model){
         Goods goods = goodsService.findById(goodsId);
         Sell sell = sellService.findById(sellId);
         model.addAttribute("sell", sell);
@@ -143,7 +146,7 @@ public class StockController {
         return "addSell";
     }
     @GetMapping("/{goodsId}/deleteSell/{sellId}")
-    public String deleteSell(@PathVariable("goodsId") Long goodsId,@PathVariable("sellId") Long sellId) {
+    public String deleteSell(@PathVariable("goodsId") String goodsId,@PathVariable("sellId") String sellId) {
         sellService.deleteById(sellId);
         return "redirect:/detail/" + goodsId;
     }

@@ -21,11 +21,11 @@ public class GoodsService {
     public void saveAndFlush(Goods goods) {
         goodsRepository.save(goods);
     }
-    public Goods findById(Long id){
+    public Goods findById(String id){
         return goodsRepository.findById(id).orElse(null);
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         goodsRepository.deleteById(id);
     }
     public List<Goods> findByGoodsNameContaining(String keyword){

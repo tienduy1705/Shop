@@ -5,16 +5,15 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-@Document(collection = "sell")  // MongoDB のコレクション名
+@Document(collection = "sells")  // MongoDB のコレクション名
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class Sell {
 
-    @Setter
-    @Getter
     @Id
     private String sellId;  // MongoDB の `_id` は通常 String 型 (ObjectId 形式)
 
@@ -24,31 +23,50 @@ public class Sell {
     @NotNull
     private Integer sellPrice;
 
-    @Setter
-    @Getter
     private String sellDate;
 
-    @Setter
-    @Getter
-    @DBRef  // MongoDB のリファレンス（外部キーの代わり）
+    @DocumentReference
     private Goods goods;
 
-    @NotNull
+
     public Integer getSellNum() {
         return sellNum;
     }
 
-    public void setSellNum(@NotNull Integer sellNum) {
+    public void setSellNum( Integer sellNum) {
         this.sellNum = sellNum;
     }
 
-    @NotNull
+
     public Integer getSellPrice() {
         return sellPrice;
     }
 
-    public void setSellPrice(@NotNull Integer sellPrice) {
+    public void setSellPrice( Integer sellPrice) {
         this.sellPrice = sellPrice;
     }
 
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public String getSellId() {
+        return sellId;
+    }
+
+    public void setSellId(String sellId) {
+        this.sellId = sellId;
+    }
+
+    public String getSellDate() {
+        return sellDate;
+    }
+
+    public void setSellDate(String sellDate) {
+        this.sellDate = sellDate;
+    }
 }

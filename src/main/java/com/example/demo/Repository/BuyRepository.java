@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface BuyRepository extends MongoRepository<Buy, Long> {
-    List<Buy> findByGoodsId(Long goodsId);
+public interface BuyRepository extends MongoRepository<Buy, String> {
+    List<Buy> findByGoodsId(String goodsId);
 }

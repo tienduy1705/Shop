@@ -16,7 +16,6 @@
     <tr>
         <th>ID</th>
         <th>商品名</th>
-        <th>在庫</th>
         <th>メーモ</th>
         <th>詳細</th>
         <th>更新</th>
@@ -24,8 +23,7 @@
     </tr>
     <tr th:each="goods : ${goods}">
         <td th:text="${goods.id}"></td>
-        <td th:text="${goods.name}"></td>
-        <td th:text="${goods.stock}"></td>
+        <td th:text="${goods.goodsName}"></td>
         <td th:text="${goods.description}"></td>
         <td><a th:href="@{/detail/{x}(x=${goods.id})}">詳細</a></td>
         <td><a th:href="@{/update/{x}(x=${goods.id})}">更新</a></td>

@@ -12,7 +12,7 @@ public class SellService {
     public SellService(SellRepository sellRepository) {
         this.sellRepository = sellRepository;
     }
-    public List<Sell> findByGoodsId(Long goodsId) {
+    public List<Sell> findByGoodsId(String goodsId) {
         return sellRepository.findByGoodsId(goodsId);
     }
 
@@ -20,11 +20,11 @@ public class SellService {
         sellRepository.save(sell);
     }
 
-    public Sell findById(Long id) {
+    public Sell findById(String id) {
         return sellRepository.findById(id).orElse(null);
     }
 
-    public void deleteById(Long sellId) {
+    public void deleteById(String sellId) {
         sellRepository.deleteById(sellId);
     }
 }

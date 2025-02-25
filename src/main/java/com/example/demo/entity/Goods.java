@@ -4,13 +4,11 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.List;
 
-@Setter
-@Getter
 @Document(collection = "goods")  // MongoDB のコレクション名
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -20,34 +18,40 @@ public class Goods {
     private String id;
 
     private String goodsName;
-    @Setter
-    private Integer stock;
 
-    @DBRef
-    private List<Buy> buys;
+    private String description;
 
-    @DBRef
-    private List<Sell> sells;
+    private Integer stock ;
 
-    /**
-     * 購入数の合計 (buyNum)
-     */
-    public int getTotalBuyQuantity() {
-        return buys != null ? buys.stream().mapToInt(Buy::getBuyNum).sum() : 0;
+    public Integer getStock() {
+        return  stock;
     }
 
-    /**
-     * 販売数の合計 (sellNum)
-     */
-    public int getTotalSellQuantity() {
-        return sells != null ? sells.stream().mapToInt(Sell::getSellNum).sum() : 0;
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
-    /**
-     * 在庫数 (stock) を動的に計算
-     */
-    public int getStock() {
-        return getTotalBuyQuantity() - getTotalSellQuantity();
+    public String getId() {
+        return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
